@@ -36,7 +36,7 @@ public class DaoCidade {
 
     public void alterar(ClasseCidade cidade) {
 
-        String sql = ("update autor set cidade = '" + cidade.getNm_cidade()+ "' where id_cidade = "
+        String sql = ("update cidade set nm_cidade = '" + cidade.getNm_cidade()+ "' where id_cidade = "
                 + cidade.getId_cidade());
 
         conecta_postgre.atualizarSQL(sql);
@@ -51,7 +51,7 @@ public class DaoCidade {
     }
 
     public void retornardados(ClasseCidade cidade) {
-        String sql = "select id_cidade,nm_cidade, cep, pais, uf  from cidade "
+        String sql = "select id_cidade,nm_cidade, cep, pais, id_uf  from cidade "
                 + "where id_cidade = " + cidade.getId_cidade();
         conecta_postgre.executeSQL(sql);
 
@@ -62,7 +62,7 @@ public class DaoCidade {
             cidade.setNm_cidade(conecta_postgre.resultset.getString("nm_cidade"));
             cidade.setCep(conecta_postgre.resultset.getInt("cep"));
             cidade.setPais(conecta_postgre.resultset.getString("pais"));
-            cidade.setUf(conecta_postgre.resultset.getString("uf"));
+            cidade.setUf(conecta_postgre.resultset.getString("id_uf"));
 
         } catch (SQLException ex) {
 
@@ -83,15 +83,17 @@ public class DaoCidade {
     public void consultadescricao(ClasseCidade cidade) {
         conecta_postgre.executeSQL("select * from cidade where nm_cidade like '%" + cidade.getNm_cidade()+ "%'");
         cidade.setRetorno(conecta_postgre.resultset);
+        
+        
 
     }
 
 
+    public void consultaestado(ClasseCidade cidade) {
+        conecta_postgre.executeSQL("select * from cidade where id_uf like '%" + cidade.getId_cidade()+ "%'");
+        cidade.setRetorno(conecta_postgre.resultset);
 
-
-
-
-
+    }
 
 
 

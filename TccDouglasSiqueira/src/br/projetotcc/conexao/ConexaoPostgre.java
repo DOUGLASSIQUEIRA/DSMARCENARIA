@@ -29,7 +29,7 @@ public class ConexaoPostgre {
                 Class.forName("org.postgresql.Driver");
                 ConexaoPostgre = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "84191963");
                 System.out.println("Conectado");
-                JOptionPane.showMessageDialog(null, "Conectado com sucesso!");
+                JOptionPane.showMessageDialog(null, "Conectado com SUCESSO!");
                 return ConexaoPostgre;
             } catch (ClassNotFoundException ex) {
                 JOptionPane.showMessageDialog(null, "Driver não localizado!");
@@ -72,15 +72,13 @@ public class ConexaoPostgre {
     public void incluirSQL(String sql) {
         try {
             statement = ConexaoPostgre.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            statement.executeQuery("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MM-YYYY'");
             resultset = statement.executeQuery(sql);
             retorno = 1;
         } catch (SQLException sqlex) {
             if (sqlex.getErrorCode() == 00001) {
-                JOptionPane.showMessageDialog(null, "Registro já cadastrado");
+                JOptionPane.showMessageDialog(null, "Registro já cadastrado incluir");
             } else {
                 System.out.println(sql);
-                JOptionPane.showMessageDialog(null, "Registro cadastrado com sucesso\n" + sql);
             }
             retorno = 0;
         }
@@ -100,7 +98,7 @@ public class ConexaoPostgre {
             if (sqlex.getErrorCode() == 2292) {
                 JOptionPane.showMessageDialog(null, "Registro nao Pode ser excluido");
             } else {
-                JOptionPane.showMessageDialog(null, "Não foi possível localizar o registro \n" + sqlex);
+                JOptionPane.showMessageDialog(null, "Não foi possível localizar o registro excluir\n" + sqlex);
             }
             retorno = 0;
         }
@@ -120,7 +118,7 @@ public class ConexaoPostgre {
             if (sqlex.getErrorCode() == 2292) {
                 JOptionPane.showMessageDialog(null, "Registro nao contém no cadastro");
             } else {
-                JOptionPane.showMessageDialog(null, "Não foi possível localizar o registro \n" + sqlex);
+                JOptionPane.showMessageDialog(null, "Não foi possível localizar o registro atualizar \n" + sqlex);
             }
             retorno = 0;
         }

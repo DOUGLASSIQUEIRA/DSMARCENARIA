@@ -29,7 +29,7 @@ public class DaoEstado {
 
     public void alterar(ClasseUf estado) {
 
-        String sql = ("update autor set nm_uf = '" + estado.getNm_estado() + "' where id_uf = "
+        String sql = ("update cidade set nm_cidade = '" + estado.getNm_estado() + "' where id_cidade = "
                 + estado.getUf());
 
         conecta_postgre.atualizarSQL(sql);
