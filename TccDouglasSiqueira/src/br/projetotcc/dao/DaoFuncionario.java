@@ -22,7 +22,7 @@ public class DaoFuncionario {
 
     }
 
-    public void incluir(ClasseFuncionario funcionario, ClassePessoa pessoa, ClassePessoaFisica pessoafisica) {
+    public void incluir(ClasseFuncionario funcionario) {
         ultima = new UltimaSequencia();
         int sequencia = (Integer) (ultima.ultimasequencia("pessoa", "id_pessoa"));
         
@@ -31,11 +31,11 @@ public class DaoFuncionario {
         */
         String sqlpessoa = " insert into pessoa values( "
                 + sequencia + " ,' "
-                + pessoa.getNm_pessoa()+ "','"
-                + pessoa.getDt_cadastro()+"','"
-                + pessoa.getTipo_pessoa()+"','"
-                + pessoa.getSituacao()+"')";
-                  pessoa.setId_pessoa(sequencia);
+                + funcionario.getNm_pessoa()+ "','"
+                + funcionario.getDt_cadastro()+"','"
+                + funcionario.getTipo_pessoa()+"','"
+                + funcionario.getSituacao()+"')";
+                  funcionario.setId_pessoa(sequencia);
                 
                    /*
         Inserindo os dados na tabela de pessoa_fisica
