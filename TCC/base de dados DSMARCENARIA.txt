@@ -229,8 +229,6 @@ create table compras_materia_prima(
 id_materia_prima integer not null,
 id_tp_madeira integer not null,
 id_compra integer not null,
-quantidade integer,
-valor numeric,
 primary key(id_materia_prima, id_tp_madeira, id_compra),
 foreign key(id_materia_prima, id_tp_madeira) references materia_prima,
 foreign key(id_compra) references compras
