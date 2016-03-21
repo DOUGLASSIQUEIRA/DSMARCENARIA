@@ -25,8 +25,8 @@ public class DaoFuncao {
 
     public void incluir(ClasseFuncao funcao) {
         ultima = new UltimaSequencia();
-        int sequencia = (Integer) (ultima.ultimasequencia("funcao", "id_funcao"));
-        String sql = " insert into funcao values( "
+        int sequencia = (Integer) (ultima.ultimasequencia("cad_funcao", "cd_funcao"));
+        String sql = " insert into cad_funcao values( "
                 + sequencia + " ,' "
                 + funcao.getDs_funcao()+ "')";
                 
@@ -37,7 +37,7 @@ public class DaoFuncao {
 
     public void alterar(ClasseFuncao funcao) {
 
-        String sql = ("update funcao set ds_funcao = '" + funcao.getDs_funcao()+ "' where id_funcao = "
+        String sql = ("update cad_funcao set ds_funcao = '" + funcao.getDs_funcao()+ "' where cd_funcao = "
                 + funcao.getId_funcao());
 
         conecta_postgre.atualizarSQL(sql);
@@ -46,20 +46,20 @@ public class DaoFuncao {
 
     public void excluir(ClasseFuncao funcao) {
 
-        String sql = ("delete from funcao where id_funcao = " + funcao.getId_funcao());
+        String sql = ("delete from cad_funcao where cd_funcao = " + funcao.getId_funcao());
         conecta_postgre.excluirSQL(sql);
 
     }
 
     public void retornardados(ClasseFuncao funcao) {
-        String sql = "select id_funcao,ds_funcao from funcao "
-                + "where id_funcao = " + funcao.getId_funcao();
+        String sql = "select cd_funcao,ds_funcao from cad_funcao "
+                + "where cd_funcao = " + funcao.getId_funcao();
         conecta_postgre.executeSQL(sql);
 
         try {
 
             conecta_postgre.resultset.first();
-            funcao.setId_funcao(conecta_postgre.resultset.getInt("id_funcao"));
+            funcao.setId_funcao(conecta_postgre.resultset.getInt("cd_funcao"));
             funcao.setDs_funcao(conecta_postgre.resultset.getString("ds_funcao"));
            
         } catch (SQLException ex) {
@@ -68,18 +68,18 @@ public class DaoFuncao {
     }
 
     public void consultargeral(ClasseFuncao funcao) {
-        conecta_postgre.executeSQL("select * from funcao");
+        conecta_postgre.executeSQL("select * from cad_funcao");
         funcao.setRetorno(conecta_postgre.resultset);
     }
 
     public void consultacodigo(ClasseFuncao funcao) {
-        conecta_postgre.executeSQL("select * from funcao where id_funcao = " + funcao.getId_funcao());
+        conecta_postgre.executeSQL("select * from cad_funcao where cd_funcao = " + funcao.getId_funcao());
         funcao.setRetorno(conecta_postgre.resultset);
 
     }
 
     public void consultadescricao(ClasseFuncao funcao) {
-        conecta_postgre.executeSQL("select * from funcao where ds_funcao like '%" + funcao.getDs_funcao()+ "%'");
+        conecta_postgre.executeSQL("select * from cad_funcao where ds_funcao like '%" + funcao.getDs_funcao()+ "%'");
         funcao.setRetorno(conecta_postgre.resultset);    
 
     }

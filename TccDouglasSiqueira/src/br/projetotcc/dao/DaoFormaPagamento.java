@@ -25,12 +25,10 @@ public class DaoFormaPagamento {
 
     public void incluir(ClasseFormaPagamento formapgto) {
         ultima = new UltimaSequencia();
-        int sequencia = (Integer) (ultima.ultimasequencia("forma_pagamento", "id_forma_pagamento"));
-        String sql = " insert into forma_pagamento values( "
+        int sequencia = (Integer) (ultima.ultimasequencia("cad_forma_pagamento", "cd_forma_pagamento"));
+        String sql = " insert into cad_forma_pagamento values( "
                 + sequencia + " ,' "
-                + formapgto.getDs_forma()+ "',"
-                + formapgto.getIntervalo()+",'"
-                + formapgto.getEntrada()+"')";
+                + formapgto.getDs_forma()+ "')";
                 
         formapgto.setId_forma_pagamento(sequencia);
         conecta_postgre.incluirSQL(sql);
@@ -39,7 +37,7 @@ public class DaoFormaPagamento {
 
     public void alterar(ClasseFormaPagamento formapgto) {
 
-        String sql = ("update forma_pagamento set ds_forma_pagamento = '" + formapgto.getDs_forma()+ "'where id_forma_pagamento = "
+        String sql = ("update cad_forma_pagamento set ds_forma = '" + formapgto.getDs_forma()+ "'where cd_forma_pagamento = "
                 + formapgto.getId_forma_pagamento());
 
         conecta_postgre.atualizarSQL(sql);
@@ -48,23 +46,22 @@ public class DaoFormaPagamento {
 
     public void excluir(ClasseFormaPagamento formapgto) {
 
-        String sql = ("delete from forma_pagamento where id_forma_pagamento = " + formapgto.getId_forma_pagamento());
+        String sql = ("delete from cad_forma_pagamento where cd_forma_pagamento = " + formapgto.getId_forma_pagamento());
         conecta_postgre.excluirSQL(sql);
 
     }
 
     public void retornardados(ClasseFormaPagamento formapgto) {
-        String sql = "select id_forma_pagamento,ds_forma_pagamento, intervalo, entrada from forma_pagamento "
-                + "where id_forma_pagamento = " + formapgto.getId_forma_pagamento();
+        String sql = "select cd_forma_pagamento,ds_forma "
+                + "where cd_forma_pagamento = " + formapgto.getId_forma_pagamento();
         conecta_postgre.executeSQL(sql);
 
         try {
 
             conecta_postgre.resultset.first();
-            formapgto.setId_forma_pagamento(conecta_postgre.resultset.getInt("id_forma_pagamento"));
-            formapgto.setDs_forma(conecta_postgre.resultset.getString("ds_forma_pagamento"));
-            formapgto.setIntervalo(conecta_postgre.resultset.getInt("intervalo"));
-            formapgto.setEntrada(conecta_postgre.resultset.getString("entrada"));
+            formapgto.setId_forma_pagamento(conecta_postgre.resultset.getInt("cd_forma_pagamento"));
+            formapgto.setDs_forma(conecta_postgre.resultset.getString("ds_forma"));
+
 
         } catch (SQLException ex) {
 
@@ -72,18 +69,18 @@ public class DaoFormaPagamento {
     }
 
     public void consultargeral(ClasseFormaPagamento formapgto) {
-        conecta_postgre.executeSQL("select * from forma_pagamento");
+        conecta_postgre.executeSQL("select * from cad_forma_pagamento");
         formapgto.setRetorno(conecta_postgre.resultset);
     }
 
     public void consultacodigo(ClasseFormaPagamento formapgto) {
-        conecta_postgre.executeSQL("select * from forma_pagamento where id_forma_pagamento = " + formapgto.getId_forma_pagamento());
+        conecta_postgre.executeSQL("select * from cad_forma_pagamento where cd_forma_pagamento = " + formapgto.getId_forma_pagamento());
         formapgto.setRetorno(conecta_postgre.resultset);
 
     }
 
     public void consultadescricao(ClasseFormaPagamento formapgto) {
-        conecta_postgre.executeSQL("select * from forma_pagamento where ds_forma_pagamento like '%" + formapgto.getDs_forma()+ "%'");
+        conecta_postgre.executeSQL("select * from cad_forma_pagamento where ds_forma like '%" + formapgto.getDs_forma()+ "%'");
         formapgto.setRetorno(conecta_postgre.resultset);
         
         

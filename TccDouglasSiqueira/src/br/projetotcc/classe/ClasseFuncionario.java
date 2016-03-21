@@ -15,6 +15,7 @@ public class ClasseFuncionario extends ClassePessoaFisica{
     private String dt_demissao;
     private double salario;
     private String problemas_saude;
+    private String dt_admissao;
     private ResultSet retorno;
     private int[] array_funcionario;
     private JTable tabela;
@@ -81,6 +82,14 @@ public class ClasseFuncionario extends ClassePessoaFisica{
 
     public void setTabela(JTable tabela) {
         this.tabela = tabela;
+    }
+
+    public String getDt_admissao() {
+        return dt_admissao;
+    }
+
+    public void setDt_admissao(String dt_admissao) {
+        this.dt_admissao = dt_admissao;
     }
     
     

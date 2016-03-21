@@ -34,7 +34,7 @@ public class FCadFormaPagamento extends javax.swing.JFrame {
      */
     public FCadFormaPagamento() {
         initComponents();
-        preencher.FormatarJtable(jTConsulta, new int[]{100, 450, 100, 200});
+        preencher.FormatarJtable(jTConsulta, new int[]{100, 450});
     }
 
     /**
@@ -52,16 +52,12 @@ public class FCadFormaPagamento extends javax.swing.JFrame {
         jTfcodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTfdescricao = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jtfcep = new javax.swing.JTextField();
         jPbotoes = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jTentrada = new javax.swing.JTextField();
         jPConsulta = new javax.swing.JPanel();
         jCbpesquisa = new javax.swing.JComboBox();
         jTfPesquisa = new javax.swing.JTextField();
@@ -70,7 +66,7 @@ public class FCadFormaPagamento extends javax.swing.JFrame {
         jTConsulta = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("CADASTRO DE CIDADE");
+        setTitle("CADASTRO FORMA DE PAGAMENTO");
 
         jLabel1.setText("Código ");
 
@@ -82,8 +78,6 @@ public class FCadFormaPagamento extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Forma de Pagamento");
-
-        jLabel3.setText("Intervalo");
 
         jPbotoes.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -157,8 +151,6 @@ public class FCadFormaPagamento extends javax.swing.JFrame {
 
         jPbotoesLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4, jButton5});
 
-        jLabel4.setText("Entrada");
-
         javax.swing.GroupLayout jPCadastroLayout = new javax.swing.GroupLayout(jPCadastro);
         jPCadastro.setLayout(jPCadastroLayout);
         jPCadastroLayout.setHorizontalGroup(
@@ -170,17 +162,7 @@ public class FCadFormaPagamento extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jTfcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jTfdescricao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPCadastroLayout.createSequentialGroup()
-                            .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jtfcep, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jTentrada, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(113, 113, 113))))
+                    .addComponent(jTfdescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPCadastroLayout.setVerticalGroup(
@@ -194,14 +176,6 @@ public class FCadFormaPagamento extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTfdescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfcep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTentrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPbotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -223,11 +197,11 @@ public class FCadFormaPagamento extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Forma de Pagamento", "Intervalo", "Entrada"
+                "Código", "Forma de Pagamento"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -266,8 +240,8 @@ public class FCadFormaPagamento extends javax.swing.JFrame {
                     .addComponent(jTfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBpesquisa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(110, 110, 110))
         );
 
         jTPrincipal.addTab("Consulta", jPConsulta);
@@ -280,10 +254,14 @@ public class FCadFormaPagamento extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 265, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(534, 304));
+        getAccessibleContext().setAccessibleName("CADASTRODE FORMA DE PAGAMENTO");
+
+        setSize(new java.awt.Dimension(534, 244));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -358,7 +336,7 @@ public class FCadFormaPagamento extends javax.swing.JFrame {
                 dao.consultadescricao(classeformapgto);
                 break;
         }
-        preencher.PreencherJtabelaGenerico(jTConsulta, new String[]{"id_forma_pagamento", "ds_forma_pagamento", "intervalo", "entrada"}, classeformapgto.getRetorno());
+        preencher.PreencherJtabelaGenerico(jTConsulta, new String[]{"cd_forma_pagamento", "ds_forma"}, classeformapgto.getRetorno());
     }//GEN-LAST:event_jBpesquisaActionPerformed
 
     private void jTConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTConsultaMouseClicked
@@ -426,27 +404,21 @@ public class FCadFormaPagamento extends javax.swing.JFrame {
     private javax.swing.JComboBox jCbpesquisa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPCadastro;
     private javax.swing.JPanel jPConsulta;
     private javax.swing.JPanel jPbotoes;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTConsulta;
     private javax.swing.JTabbedPane jTPrincipal;
-    private javax.swing.JTextField jTentrada;
     private javax.swing.JTextField jTfPesquisa;
     private javax.swing.JTextField jTfcodigo;
     private javax.swing.JTextField jTfdescricao;
-    private javax.swing.JTextField jtfcep;
     // End of variables declaration//GEN-END:variables
  public ClasseFormaPagamento getcomp() {
         if (situacao == Rotinas.Alterar) {
             classeformapgto.setId_forma_pagamento(Integer.parseInt(jTfcodigo.getText()));
         }
         classeformapgto.setDs_forma(jTfdescricao.getText());
-        classeformapgto.setIntervalo(Integer.parseInt(jtfcep.getText()));
-        classeformapgto.setEntrada(jTentrada.getText());
         return classeformapgto;
 
     }
@@ -454,8 +426,7 @@ public class FCadFormaPagamento extends javax.swing.JFrame {
     public void setcomp() {
         jTfcodigo.setText(Integer.toString(classeformapgto.getId_forma_pagamento()));
         jTfdescricao.setText(classeformapgto.getDs_forma());
-        jtfcep.setText(Integer.toString(classeformapgto.getIntervalo()));
-        jTentrada.setText(classeformapgto.getEntrada());
+      
     }
 
 }

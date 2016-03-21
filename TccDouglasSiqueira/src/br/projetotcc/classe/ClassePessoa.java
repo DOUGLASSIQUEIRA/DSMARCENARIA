@@ -18,6 +18,7 @@ public class ClassePessoa {
     private String dt_cadastro;
     private String tipo_pessoa;
     private String situacao;
+    private String e_mail;
     private ResultSet retorno;
     private int[] array_pessoa;
     private JTable tabela;
@@ -84,6 +85,14 @@ public class ClassePessoa {
 
     public void setTabela(JTable tabela) {
         this.tabela = tabela;
+    }
+
+    public String getE_mail() {
+        return e_mail;
+    }
+
+    public void setE_mail(String e_mail) {
+        this.e_mail = e_mail;
     }
 
     

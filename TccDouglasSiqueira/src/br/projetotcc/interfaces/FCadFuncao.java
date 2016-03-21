@@ -332,7 +332,7 @@ public class FCadFuncao extends javax.swing.JFrame {
                 dao.consultadescricao(classefuncao);
                 break;
         }
-        preencher.PreencherJtabelaGenerico(jTConsulta, new String[]{"id_funcao", "ds_funcao"}, classefuncao.getRetorno());
+        preencher.PreencherJtabelaGenerico(jTConsulta, new String[]{"cd_funcao", "ds_funcao"}, classefuncao.getRetorno());
     }//GEN-LAST:event_jBpesquisaActionPerformed
 
     private void jTConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTConsultaMouseClicked

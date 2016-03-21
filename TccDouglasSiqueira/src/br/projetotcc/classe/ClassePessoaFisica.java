@@ -14,6 +14,7 @@ public class ClassePessoaFisica extends ClassePessoa{
     private int cpf;
     private String sexo;
     private String dt_nascimento;
+    private String estado_civil;
     private ResultSet retorno;
     private int[] array_pessoafisica;
     private JTable tabela;
@@ -64,6 +65,14 @@ public class ClassePessoaFisica extends ClassePessoa{
 
     public void setArray_pessoafisica(int[] array_pessoafisica) {
         this.array_pessoafisica = array_pessoafisica;
+    }
+
+    public String getEstado_civil() {
+        return estado_civil;
+    }
+
+    public void setEstado_civil(String estado_civil) {
+        this.estado_civil = estado_civil;
     }
         
     

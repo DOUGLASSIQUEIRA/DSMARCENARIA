@@ -66,7 +66,7 @@ public class FCadUnidadeMedida extends javax.swing.JFrame {
         jTConsulta = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("CADASTRO DE CIDADE");
+        setTitle("cADASTRO DE UNIDADE DE MEDIDA");
 
         jLabel1.setText("Código ");
 
@@ -332,7 +332,7 @@ public class FCadUnidadeMedida extends javax.swing.JFrame {
                 dao.consultadescricao(classeunmedida);
                 break;
         }
-        preencher.PreencherJtabelaGenerico(jTConsulta, new String[]{"id_unidade_medida", "ds_unidade_medida"}, classeunmedida.getRetorno());
+        preencher.PreencherJtabelaGenerico(jTConsulta, new String[]{"cd_unidade_medida", "ds_unidade_medida"}, classeunmedida.getRetorno());
     }//GEN-LAST:event_jBpesquisaActionPerformed
 
     private void jTConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTConsultaMouseClicked

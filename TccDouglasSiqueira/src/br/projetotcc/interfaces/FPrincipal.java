@@ -37,7 +37,7 @@ public class FPrincipal extends javax.swing.JFrame {
         jMenuItem11 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Projeto Integrador");
+        setTitle("DSMARCENARIA");
 
         jMenu1.setText("Cadastro");
 
