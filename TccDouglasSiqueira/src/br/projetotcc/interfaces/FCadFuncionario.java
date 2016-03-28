@@ -3,38 +3,54 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.projetotcc.interfaces;
 
 /**
  *
  * @author Douglas Siqueira
  */
-
-import br.projetotcc.classe.ClasseCidade;
-import br.projetotcc.dao.DaoCidade;
+import br.projetotcc.classe.ClassePessoa;
+import br.projetotcc.classe.ClassePessoaFisica;
+import br.projetotcc.classe.ClasseTelefone;
+import br.projetotcc.classe.ClasseEndereco;
+import br.projetotcc.classe.ClasseFuncionario;
+import br.projetotcc.dao.DaoFuncionario;
+import br.projetotcc.dao.DaoMovFuncionarioTelefone;
 import br.projetotcc.validacoes.Rotinas;
 import javax.swing.JOptionPane;
 import br.projetotcc.validacoes.ValidaBotoes;
 import br.projetotcc.validacoes.LimparCampos;
+import br.projetotcc.validacoes.Mascaras;
 import br.projetotcc.validacoes.ValidaCamposObrigatorios;
 import br.projetotcc.validacoes.PreencherJtableGenerica;
+import br.projetotcc.validacoes.ValidaCpfCnpj;
+import static java.lang.String.format;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class FCadFuncionario extends javax.swing.JFrame {
-    
-    ClasseCidade classecidade = new ClasseCidade();
-    DaoCidade dao = new DaoCidade();
+
+    ClasseFuncionario classefuncionario = new ClasseFuncionario();
+    ClasseTelefone classetelefone = new ClasseTelefone();
+    ClasseEndereco classeendereco = new ClasseEndereco();
+    DaoFuncionario dao = new DaoFuncionario();
+    DaoMovFuncionarioTelefone daomovtelefone = new DaoMovFuncionarioTelefone();
     ValidaBotoes estado = new ValidaBotoes();
     LimparCampos limparcampos = new LimparCampos();
     ValidaCamposObrigatorios validacampos = new ValidaCamposObrigatorios();
     PreencherJtableGenerica preencher = new PreencherJtableGenerica();
+    Mascaras mascaras = new  Mascaras();
+    ValidaCpfCnpj validadados = new ValidaCpfCnpj();
     int situacao = Rotinas.Padrao;
+
     /**
-     * Creates new form 
+     * Creates new form
      */
     public FCadFuncionario() {
-        initComponents();
-        preencher.FormatarJtable(jTConsulta, new int[]{100, 450, 300, 300, 100});
+        initComponents(); 
+        preencher.FormatarJtable(jTConsulta, new int[]{80, 350, 100, 100, 100, 100, 100, 100,
+            100, 100, 100, 120, 100, 300, 120, 120, 300, 350, 100, 300, 300, 100}); 
+
     }
 
     /**
@@ -81,7 +97,7 @@ public class FCadFuncionario extends javax.swing.JFrame {
         JtfProblemaSaude = new javax.swing.JTextArea();
         jLabel13 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        JtbTelefone = new javax.swing.JTable();
         BtnMais = new javax.swing.JButton();
         BtnMenos = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
@@ -112,8 +128,6 @@ public class FCadFuncionario extends javax.swing.JFrame {
         jComboBox4 = new javax.swing.JComboBox();
         JtfCdTelefone = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        JtfCdFuncionario = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
         jComboBox5 = new javax.swing.JComboBox();
         jLabel30 = new javax.swing.JLabel();
@@ -291,30 +305,47 @@ public class FCadFuncionario extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel13.setText("Telefone");
 
-        jTable2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        JtbTelefone.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        JtbTelefone.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "Selecionar", "Sequência", "Funcionário", "Tipo Telefone", "Numero Telefone"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        jScrollPane4.setViewportView(jTable2);
+        jScrollPane4.setViewportView(JtbTelefone);
 
         BtnMais.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         BtnMais.setText("+");
+        BtnMais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnMaisActionPerformed(evt);
+            }
+        });
 
         BtnMenos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         BtnMenos.setText("-");
+        BtnMenos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnMenosActionPerformed(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setText("Função");
@@ -374,17 +405,6 @@ public class FCadFuncionario extends javax.swing.JFrame {
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel27.setText("Funcionário");
-
-        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel28.setText("Funcionário");
-
-        JtfCdFuncionario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        JtfCdFuncionario.setEnabled(false);
-        JtfCdFuncionario.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                JtfCdFuncionarioFocusLost(evt);
-            }
-        });
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel29.setText("Rua");
@@ -532,14 +552,12 @@ public class FCadFuncionario extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addGroup(jPCadastroLayout.createSequentialGroup()
                                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(JtfSequnciaEnderecoPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel21))
-                                .addGap(27, 27, 27)
+                                    .addComponent(jLabel21)
+                                    .addComponent(JtfSequnciaEnderecoPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(57, 57, 57)
                                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(JtfCdFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel28))
-                                .addGap(30, 30, 30)
-                                .addComponent(JtfRua, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel29)
+                                    .addComponent(JtfRua, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(30, 30, 30)
                                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel23)
@@ -557,11 +575,6 @@ public class FCadFuncionario extends javax.swing.JFrame {
                             .addComponent(jComboBox5, 0, 85, Short.MAX_VALUE)
                             .addComponent(JtfEstadoCivil))
                         .addGap(91, 91, 91))))
-            .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPCadastroLayout.createSequentialGroup()
-                    .addGap(238, 238, 238)
-                    .addComponent(jLabel29)
-                    .addContainerGap(609, Short.MAX_VALUE)))
         );
         jPCadastroLayout.setVerticalGroup(
             jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -632,52 +645,42 @@ public class FCadFuncionario extends javax.swing.JFrame {
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel20)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPCadastroLayout.createSequentialGroup()
-                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel23))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(JtfRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JtfSequnciaEnderecoPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JtfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPCadastroLayout.createSequentialGroup()
-                        .addComponent(jLabel28)
-                        .addGap(27, 27, 27))
-                    .addComponent(JtfCdFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel29))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JtfRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JtfSequnciaEnderecoPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JtfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPCadastroLayout.createSequentialGroup()
                         .addComponent(jLabel24)
                         .addGap(8, 8, 8)
+                        .addComponent(JtfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel15)
+                                .addComponent(JtfCdTpTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel16)
                             .addGroup(jPCadastroLayout.createSequentialGroup()
-                                .addComponent(JtfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jLabel27))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel13))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPCadastroLayout.createSequentialGroup()
-                                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(jLabel15)
-                                                .addComponent(JtfCdTpTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jLabel16))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(JtfNrTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPCadastroLayout.createSequentialGroup()
-                                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel17)
-                                            .addComponent(jLabel27))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(JtfSequenciaTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(JtfCdTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(JtfSequenciaTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(JtfCdTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(JtfNrTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPCadastroLayout.createSequentialGroup()
@@ -698,17 +701,12 @@ public class FCadFuncionario extends javax.swing.JFrame {
                             .addComponent(JtfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPCadastroLayout.createSequentialGroup()
-                    .addGap(320, 320, 320)
-                    .addComponent(jLabel29)
-                    .addContainerGap(352, Short.MAX_VALUE)))
         );
 
         jTPrincipal.addTab("Cadastro", jPCadastro);
 
         jCbpesquisa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jCbpesquisa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Nome", "Estado" }));
+        jCbpesquisa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Nome", "RG", "CPF" }));
 
         jTfPesquisa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
@@ -720,23 +718,25 @@ public class FCadFuncionario extends javax.swing.JFrame {
             }
         });
 
-        jTConsulta.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTConsulta.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTConsulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome", "RG", "CPF", "função", "Data de nascimento", "Data de Admissão", "Salario", "Situação", "Problemas de Saude", "Data de demissão"
+                "Código", "Nome", "RG", "CPF", "Situação", "Data do Cadastro", "Data de Admissão", "Tipo de Pessoa", "Sexo", "Data de nascimento", "Estado Civil", "função", "Salario", "Problemas de Saude", "Tipo Telefone", "Numero do Telefone", "Cidade", "Logradouro", "Número", "Bairro", "Complemento", "Data de demissão"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        jTConsulta.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTConsulta.setEnabled(false);
         jTConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTConsultaMouseClicked(evt);
@@ -793,7 +793,7 @@ public class FCadFuncionario extends javax.swing.JFrame {
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         jTPrincipal.addTab("Consulta", jPConsulta);
@@ -817,27 +817,27 @@ public class FCadFuncionario extends javax.swing.JFrame {
         JtfNomeFuncionario.grabFocus();
         situacao = Rotinas.Incluir;
         estado.ValidaEstado(jPbotoes, situacao);
-        limparcampos.LimparCampos(jPCadastro);
+        limparcampos.LimparCampos(jPCadastro);                
     }//GEN-LAST:event_BtnNovoActionPerformed
 
     private void JtfCodigoPessoaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JtfCodigoPessoaFocusLost
         if (!JtfCodigoPessoa.getText().equals("")) {
-            getcomp();
-            dao.retornardados(classecidade);
-            setcomp();
+            //    getcomp();
+            dao.retornardados(classefuncionario, classeendereco, classetelefone);
+            // setcomp();
         }
     }//GEN-LAST:event_JtfCodigoPessoaFocusLost
 
     private void BtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAlterarActionPerformed
-         situacao = Rotinas.Alterar;
+        situacao = Rotinas.Alterar;
         // TODO add your handling code here:
         estado.ValidaEstado(jPbotoes, situacao);
     }//GEN-LAST:event_BtnAlterarActionPerformed
 
     private void BtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnExcluirActionPerformed
-         if (JOptionPane.showConfirmDialog(null, "Confirmar a Exclusão do Registro") == 0) {
+        if (JOptionPane.showConfirmDialog(null, "Confirmar a Exclusão do Registro") == 0) {
             //classe.setCdcor(Integer.parseInt(jTfcodigo.getText()));
-            dao.excluir(classecidade);
+            dao.excluir(classefuncionario, null, null);
             limparcampos.LimparCampos(jPCadastro);
         }
     }//GEN-LAST:event_BtnExcluirActionPerformed
@@ -849,20 +849,23 @@ public class FCadFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
     private void BtnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGravarActionPerformed
-         if (validacampos.retorno != 1) {
+
+        if (validacampos.retorno != 1) {
             // TODO add your handling code here:
             if (JtfNomeFuncionario.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe a Cidade");
                 JtfNomeFuncionario.grabFocus();
                 return;
 
+                
+
             } else {
-                getcomp();
+                //    getcomp();
                 if (situacao == Rotinas.Incluir) {
-                    dao.incluir(classecidade);
-                    JtfCodigoPessoa.setText(Integer.toString(classecidade.getId_cidade()));
+                    dao.incluir(classefuncionario, null, null);
+                    JtfCodigoPessoa.setText(Integer.toString(classefuncionario.getId_funcionario()));
                 } else if (situacao == Rotinas.Alterar) {
-                    dao.alterar(classecidade);
+                    dao.alterar(classefuncionario, classeendereco, classetelefone);
                 }
             }
         }
@@ -871,50 +874,73 @@ public class FCadFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnGravarActionPerformed
 
     private void jBpesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBpesquisaActionPerformed
+      
         switch (jCbpesquisa.getSelectedIndex()) {
-            case 0:
-                dao.consultargeral(classecidade);
+            case 0:     
+                dao.consultargeral(classefuncionario);
                 break;
             case 1:
-                classecidade.setId_cidade(Integer.parseInt(jTfPesquisa.getText()));
-                dao.consultacodigo(classecidade);
+                classefuncionario.setId_funcionario(Integer.parseInt(jTfPesquisa.getText()));
+                dao.consultacodigo(classefuncionario);
                 break;
             case 2:
-                classecidade.setNm_cidade(jTfPesquisa.getText());
-                dao.consultadescricao(classecidade);
+                classefuncionario.setNm_pessoa(jTfPesquisa.getText());
+                dao.consultadescricao(classefuncionario);
                 break;
             case 3:
-                classecidade.setUf(jTfPesquisa.getText());
-                dao.consultaestado(classecidade);
+                classefuncionario.setRg(Integer.parseInt(jTfPesquisa.getText()));
+                dao.consultaRg(classefuncionario);
+                break;
+            case 4:
+                classefuncionario.setCpf(Integer.parseInt(jTfPesquisa.getText()));
+                dao.consultaCpf(classefuncionario);
                 break;
         }
-        preencher.PreencherJtabelaGenerico(jTConsulta, new String[]{"id_cidade", "nm_cidade", "cep", "pais", "id_uf"}, classecidade.getRetorno());
+        preencher.PreencherJtabelaGenerico(jTConsulta, new String[]{"cd_pessoa", "ds_pessoa", "rg",
+            "cpf", "in_situacao", "dt_cadastro", "dt_admissao", "tp_pessoa", "sexo", "dt_nascimento",
+            "estado_civil", "ds_funcao", "salario", "problema_saude", "ds_tipo_telefone", "nr_telefone", "ds_cidade", "rua",
+            "numero", "bairro", "complemento", "dt_demissao"}, classefuncionario.getRetorno());
     }//GEN-LAST:event_jBpesquisaActionPerformed
 
     private void jTConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTConsultaMouseClicked
-       if (evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 2) {
             int linha = jTConsulta.getSelectedRow();
             String codigo = (String) jTConsulta.getValueAt(linha, 0);
 
-            classecidade.setId_cidade(Integer.parseInt(codigo));
-            dao.retornardados(classecidade);
-            setcomp();
+            classefuncionario.setId_funcionario(Integer.parseInt(codigo));
+            dao.retornardados(classefuncionario, classeendereco, classetelefone);
+            // setcomp();
 
             jTPrincipal.setSelectedIndex(0);
-       }
+        }
     }//GEN-LAST:event_jTConsultaMouseClicked
 
     private void JtfCdTelefoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JtfCdTelefoneFocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_JtfCdTelefoneFocusLost
 
-    private void JtfCdFuncionarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JtfCdFuncionarioFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JtfCdFuncionarioFocusLost
-
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void BtnMaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMaisActionPerformed
+        classefuncionario.setTabela(JtbTelefone);
+
+        daomovtelefone.adicionaritens(classefuncionario, new String[]{JtfSequenciaTelefone.getText(), JtfCdTelefone.getText(),
+            JtfCdTpTelefone.getText(), JtfNrTelefone.getText()});
+        JtbTelefone = classefuncionario.getTabela();
+
+        JtfSequenciaTelefone.setText("");
+        JtfCdTelefone.setText("");
+        JtfCdTpTelefone.setText("");
+        JtfNrTelefone.setText("");
+    }//GEN-LAST:event_BtnMaisActionPerformed
+
+    private void BtnMenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMenosActionPerformed
+        classefuncionario.setTabela(JtbTelefone);
+        daomovtelefone.excluiitens(classefuncionario);
+
+    }//GEN-LAST:event_BtnMenosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -966,10 +992,10 @@ public class FCadFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton BtnMais;
     private javax.swing.JButton BtnMenos;
     private javax.swing.JButton BtnNovo;
+    private javax.swing.JTable JtbTelefone;
     private javax.swing.JTextField JtfBairro;
     private javax.swing.JTextField JtfCdCidade;
     private javax.swing.JTextField JtfCdFuncao;
-    private javax.swing.JTextField JtfCdFuncionario;
     private javax.swing.JTextField JtfCdTelefone;
     private javax.swing.JTextField JtfCdTpTelefone;
     private javax.swing.JTextField JtfCodigoPessoa;
@@ -1020,7 +1046,6 @@ public class FCadFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
@@ -1042,27 +1067,59 @@ public class FCadFuncionario extends javax.swing.JFrame {
     private javax.swing.JTable jTConsulta;
     private javax.swing.JTabbedPane jTPrincipal;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTfPesquisa;
     // End of variables declaration//GEN-END:variables
- public ClasseCidade getcomp() {
+ public ClasseFuncionario getcomp() {
         if (situacao == Rotinas.Alterar) {
-            classecidade.setId_cidade(Integer.parseInt(JtfCodigoPessoa.getText()));
+            classefuncionario.setId_funcao(Integer.parseInt(JtfCodigoPessoa.getText()));
         }
-        classecidade.setNm_cidade(JtfNomeFuncionario.getText());
-        classecidade.setCep(Integer.parseInt(JtfRg.getText()));
-        classecidade.setPais(JtfCpf.getText());
-        classecidade.setUf(JtfSalario.getText());
-        return classecidade;
+        classefuncionario.setDt_cadastro(JtfDtCadastro.getText());
+        classefuncionario.setDt_admissao(JtfDtAdmissao.getText());
+        classefuncionario.setDt_demissao(JtfDtDesmissao.getText());
+        classefuncionario.setSituacao(JtfSituacao.getText());
+        classefuncionario.setNm_pessoa(JtfNomeFuncionario.getText());
+        classefuncionario.setSexo(JtfSexo.getText());
+        classefuncionario.setDt_nascimento(JtfDtNascimento.getText());
+        classefuncionario.setSalario(Double.parseDouble(JtfSalario.getText()));
+        classefuncionario.setId_funcao(Integer.parseInt(JtfCdFuncao.getText()));
+        classefuncionario.setRg(Integer.parseInt(JtfRg.getText()));
+        classefuncionario.setCpf(Integer.parseInt(JtfCpf.getText()));
+        classefuncionario.setE_mail(JtfEmail.getText());
+        classefuncionario.setProblemas_saude(JtfProblemaSaude.getText());
+        classefuncionario.setEstado_civil(JtfEstadoCivil.getText());
+        classefuncionario.setSequencia_endereco(Integer.parseInt(JtfSequnciaEnderecoPessoa.getText()));
+        classefuncionario.setRua(JtfRua.getText());
+        classefuncionario.setNumero(JtfNumero.getText());
+        classefuncionario.setBairro(JtfBairro.getText());
+        classefuncionario.setComplemento(JtfComplemento.getText());
+        classefuncionario.setCidade(Integer.parseInt(JtfCdCidade.getText()));
+
+        return classefuncionario;
 
     }
 
     public void setcomp() {
-        JtfCodigoPessoa.setText(Integer.toString(classecidade.getId_cidade()));
-        JtfNomeFuncionario.setText(classecidade.getNm_cidade());
-        JtfRg.setText(Integer.toString(classecidade.getCep()));
-        JtfCpf.setText(classecidade.getPais());
-        JtfSalario.setText(classecidade.getUf());
-    }
+        JtfCodigoPessoa.setText(Integer.toString(classefuncionario.getId_funcionario()));
+        JtfNomeFuncionario.setText(classefuncionario.getNm_pessoa());
+        JtfRg.setText(Integer.toString(classefuncionario.getRg()));
+        JtfCpf.setText(Integer.toString(classefuncionario.getCpf()));
+        JtfSalario.setText(Double.toString(classefuncionario.getSalario()));
+        JtfDtAdmissao.setText(classefuncionario.getDt_admissao());
+        JtfDtDesmissao.setText(classefuncionario.getDt_demissao());
+        JtfSituacao.setText(classefuncionario.getSituacao());
+        JtfSexo.setText(classefuncionario.getSexo());
+        JtfDtNascimento.setText(classefuncionario.getDt_nascimento());
+        JtfCdFuncao.setText(Integer.toString(classefuncionario.getId_funcao()));
+        JtfEmail.setText(classefuncionario.getE_mail());
+        JtfProblemaSaude.setText(classefuncionario.getProblemas_saude());
+        JtfEstadoCivil.setText(classefuncionario.getEstado_civil());
+        JtfSequnciaEnderecoPessoa.setText(Integer.toString(classefuncionario.getSequencia_endereco()));
+        JtfRua.setText(classefuncionario.getRua());
+        JtfNumero.setText(classefuncionario.getNumero());
+        JtfBairro.setText(classefuncionario.getBairro());
+        JtfComplemento.setText(classefuncionario.getComplemento());
+        JtfCdCidade.setText(Integer.toString(classefuncionario.getCidade()));
+        JtfDtCadastro.setText(classefuncionario.getDt_cadastro());
 
+    }
 }

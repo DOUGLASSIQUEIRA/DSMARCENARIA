@@ -19,6 +19,13 @@ public class ClassePessoa {
     private String tipo_pessoa;
     private String situacao;
     private String e_mail;
+    private String rua;
+    private String numero;
+    private int sequencia_endereco;
+    private String bairro;
+    private int cidade;
+    private String complemento;
+    
     private ResultSet retorno;
     private int[] array_pessoa;
     private JTable tabela;
@@ -95,5 +102,54 @@ public class ClassePessoa {
         this.e_mail = e_mail;
     }
 
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public int getSequencia_endereco() {
+        return sequencia_endereco;
+    }
+
+    public void setSequencia_endereco(int sequencia_endereco) {
+        this.sequencia_endereco = sequencia_endereco;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public int getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(int cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    
     
 }

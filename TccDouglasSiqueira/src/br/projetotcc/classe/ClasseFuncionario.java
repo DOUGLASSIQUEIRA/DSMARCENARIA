@@ -8,7 +8,7 @@ import javax.swing.JTable;
  *
  * @author DOUGLAS
  */
-public class ClasseFuncionario extends ClassePessoaFisica{
+public class ClasseFuncionario extends ClassePessoaFisica {
     
     private int id_funcionario;
     private int id_funcao;
@@ -16,6 +16,9 @@ public class ClasseFuncionario extends ClassePessoaFisica{
     private double salario;
     private String problemas_saude;
     private String dt_admissao;
+    private int sequencia;
+    private int tp_telefone;
+    private int nr_telefone;
     private ResultSet retorno;
     private int[] array_funcionario;
     private JTable tabela;
@@ -91,6 +94,31 @@ public class ClasseFuncionario extends ClassePessoaFisica{
     public void setDt_admissao(String dt_admissao) {
         this.dt_admissao = dt_admissao;
     }
+
+    public int getSequencia() {
+        return sequencia;
+    }
+
+    public void setSequencia(int sequencia) {
+        this.sequencia = sequencia;
+    }
+
+    public int getTp_telefone() {
+        return tp_telefone;
+    }
+
+    public void setTp_telefone(int tp_telefone) {
+        this.tp_telefone = tp_telefone;
+    }
+
+    public int getNr_telefone() {
+        return nr_telefone;
+    }
+
+    public void setNr_telefone(int nr_telefone) {
+        this.nr_telefone = nr_telefone;
+    }
+    
     
     
  
