@@ -21,10 +21,14 @@ import javax.swing.JOptionPane;
 import br.projetotcc.validacoes.ValidaBotoes;
 import br.projetotcc.validacoes.LimparCampos;
 import br.projetotcc.validacoes.Mascaras;
+import br.projetotcc.validacoes.PreencherComboBox;
 import br.projetotcc.validacoes.ValidaCamposObrigatorios;
 import br.projetotcc.validacoes.PreencherJtableGenerica;
 import br.projetotcc.validacoes.ValidaCpfCnpj;
 import static java.lang.String.format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JFormattedTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -39,7 +43,8 @@ public class FCadFuncionario extends javax.swing.JFrame {
     LimparCampos limparcampos = new LimparCampos();
     ValidaCamposObrigatorios validacampos = new ValidaCamposObrigatorios();
     PreencherJtableGenerica preencher = new PreencherJtableGenerica();
-    Mascaras mascaras = new  Mascaras();
+    Mascaras mascaras = new Mascaras();
+    PreencherComboBox preenchercombo = new PreencherComboBox();
     ValidaCpfCnpj validadados = new ValidaCpfCnpj();
     int situacao = Rotinas.Padrao;
 
@@ -47,9 +52,13 @@ public class FCadFuncionario extends javax.swing.JFrame {
      * Creates new form
      */
     public FCadFuncionario() {
-        initComponents(); 
+        initComponents();
         preencher.FormatarJtable(jTConsulta, new int[]{80, 350, 100, 100, 100, 100, 100, 100,
-            100, 100, 100, 120, 100, 300, 120, 120, 300, 350, 100, 300, 300, 100}); 
+            100, 100, 100, 120, 100, 300, 120, 120, 300, 350, 100, 300, 300, 100});
+        situacao = Rotinas.Padrao;
+        estado.ValidaEstado(jPbotoes, situacao, BtnNovo, BtnAlterar, BtnExcluir, BtnCancelar, BtnGravar);
+        estado.HabilitarCampos(jPCadastro, false);
+        JtfProblemaSaude.setVisible(false);
 
     }
 
@@ -80,7 +89,6 @@ public class FCadFuncionario extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         JtfSalario = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        JtfDtAdmissao = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         JtfDtDesmissao = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -110,14 +118,14 @@ public class FCadFuncionario extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         JtfNrTelefone = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        JtfSequenciaTelefone = new javax.swing.JTextField();
+        JtfSequencia = new javax.swing.JTextField();
         JtfEmail = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         JtfRua = new javax.swing.JTextField();
-        JtfSequnciaEnderecoPessoa = new javax.swing.JTextField();
+        JtfSequencia2 = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         JtfNumero = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
@@ -125,9 +133,7 @@ public class FCadFuncionario extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         JtfComplemento = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox();
-        JtfCdTelefone = new javax.swing.JTextField();
-        jLabel27 = new javax.swing.JLabel();
+        jcbcidade = new javax.swing.JComboBox();
         jLabel29 = new javax.swing.JLabel();
         jComboBox5 = new javax.swing.JComboBox();
         jLabel30 = new javax.swing.JLabel();
@@ -136,6 +142,7 @@ public class FCadFuncionario extends javax.swing.JFrame {
         JtfCdTpTelefone = new javax.swing.JTextField();
         JtfEstadoCivil = new javax.swing.JTextField();
         JtfSituacao = new javax.swing.JTextField();
+        JtfDtAdmissao = new javax.swing.JTextField();
         jPConsulta = new javax.swing.JPanel();
         jCbpesquisa = new javax.swing.JComboBox();
         jTfPesquisa = new javax.swing.JTextField();
@@ -257,8 +264,6 @@ public class FCadFuncionario extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Salario");
 
-        JtfDtAdmissao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Data Cadastro");
 
@@ -271,6 +276,7 @@ public class FCadFuncionario extends javax.swing.JFrame {
         jLabel8.setText("Data Admissão");
 
         JtfDtCadastro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        JtfDtCadastro.setEnabled(false);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Sexo");
@@ -370,7 +376,8 @@ public class FCadFuncionario extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel17.setText("Sequecial");
 
-        JtfSequenciaTelefone.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        JtfSequencia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        JtfSequencia.setEnabled(false);
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel19.setText("Problemas de Saude");
@@ -380,6 +387,8 @@ public class FCadFuncionario extends javax.swing.JFrame {
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel21.setText("Sequecial");
+
+        JtfSequencia2.setEnabled(false);
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel23.setText("Numero");
@@ -393,18 +402,7 @@ public class FCadFuncionario extends javax.swing.JFrame {
         jLabel26.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel26.setText("Complemento");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        JtfCdTelefone.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        JtfCdTelefone.setEnabled(false);
-        JtfCdTelefone.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                JtfCdTelefoneFocusLost(evt);
-            }
-        });
-
-        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel27.setText("Funcionário");
+        jcbcidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel29.setText("Rua");
@@ -437,11 +435,11 @@ public class FCadFuncionario extends javax.swing.JFrame {
                                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(JtfDtCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6))
-                                .addGap(131, 131, 131)
-                                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPCadastroLayout.createSequentialGroup()
-                                        .addComponent(JtfDtAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(71, 71, 71)
+                                .addGap(92, 92, 92)
+                                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPCadastroLayout.createSequentialGroup()
+                                        .addComponent(JtfDtAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(JtfDtDesmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPCadastroLayout.createSequentialGroup()
                                         .addComponent(jLabel8)
@@ -526,25 +524,21 @@ public class FCadFuncionario extends javax.swing.JFrame {
                                 .addComponent(jLabel25)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(JtfCdCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jcbcidade, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(23, 23, 23))
                     .addGroup(jPCadastroLayout.createSequentialGroup()
                         .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPCadastroLayout.createSequentialGroup()
                                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(JtfSequenciaTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(JtfSequencia, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel17))
-                                .addGap(37, 37, 37)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(JtfCdTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel27))
-                                .addGap(52, 52, 52)
-                                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPCadastroLayout.createSequentialGroup()
                                         .addComponent(jLabel15)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(JtfCdTpTelefone)))
+                                        .addGap(40, 40, 40)
+                                        .addComponent(JtfCdTpTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(51, 51, 51)
                                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(JtfNrTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -553,7 +547,7 @@ public class FCadFuncionario extends javax.swing.JFrame {
                             .addGroup(jPCadastroLayout.createSequentialGroup()
                                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel21)
-                                    .addComponent(JtfSequnciaEnderecoPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(JtfSequencia2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(57, 57, 57)
                                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel29)
@@ -589,10 +583,10 @@ public class FCadFuncionario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JtfCodigoPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JtfDtAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JtfDtDesmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JtfDtCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JtfDtAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -653,7 +647,7 @@ public class FCadFuncionario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JtfRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JtfSequnciaEnderecoPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JtfSequencia2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JtfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -672,13 +666,10 @@ public class FCadFuncionario extends javax.swing.JFrame {
                                 .addComponent(JtfCdTpTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel16)
                             .addGroup(jPCadastroLayout.createSequentialGroup()
-                                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel17)
-                                    .addComponent(jLabel27))
+                                .addComponent(jLabel17)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(JtfSequenciaTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(JtfCdTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(JtfSequencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(JtfNrTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -699,7 +690,7 @@ public class FCadFuncionario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(JtfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jcbcidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -816,15 +807,24 @@ public class FCadFuncionario extends javax.swing.JFrame {
     private void BtnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNovoActionPerformed
         JtfNomeFuncionario.grabFocus();
         situacao = Rotinas.Incluir;
-        estado.ValidaEstado(jPbotoes, situacao);
-        limparcampos.LimparCampos(jPCadastro);                
+        limparcampos.LimparCampos(jPCadastro);
+        JtfDtNascimento.setText(new SimpleDateFormat("dd/MM/yyyy").format(new java.sql.Date(System.currentTimeMillis())));
+        JtfDtCadastro.setText(new SimpleDateFormat("dd/MM/yyyy").format(new java.sql.Date(System.currentTimeMillis())));
+        estado.ValidaEstado(jPbotoes, situacao, BtnNovo, BtnAlterar, BtnExcluir, BtnCancelar, BtnGravar);
+        JtfProblemaSaude.setVisible(true);
+        estado.HabilitarCampos(jPCadastro, true);
+        JtfCodigoPessoa.setEditable(false);
+        JtfSequencia.setEditable(false);
+        JtfDtCadastro.setEditable(false);
+        JtfSequencia2.setEditable(false);
+        
     }//GEN-LAST:event_BtnNovoActionPerformed
 
     private void JtfCodigoPessoaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JtfCodigoPessoaFocusLost
         if (!JtfCodigoPessoa.getText().equals("")) {
-            //    getcomp();
+            getcomp();
             dao.retornardados(classefuncionario, classeendereco, classetelefone);
-            // setcomp();
+            setcomp();
         }
     }//GEN-LAST:event_JtfCodigoPessoaFocusLost
 
@@ -853,16 +853,14 @@ public class FCadFuncionario extends javax.swing.JFrame {
         if (validacampos.retorno != 1) {
             // TODO add your handling code here:
             if (JtfNomeFuncionario.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Informe a Cidade");
+                JOptionPane.showMessageDialog(null, "Informe o nome do funcionário");
                 JtfNomeFuncionario.grabFocus();
                 return;
 
-                
-
             } else {
-                //    getcomp();
+                getcomp();
                 if (situacao == Rotinas.Incluir) {
-                    dao.incluir(classefuncionario, null, null);
+                    dao.incluir(classefuncionario, classetelefone, classeendereco);
                     JtfCodigoPessoa.setText(Integer.toString(classefuncionario.getId_funcionario()));
                 } else if (situacao == Rotinas.Alterar) {
                     dao.alterar(classefuncionario, classeendereco, classetelefone);
@@ -874,9 +872,9 @@ public class FCadFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnGravarActionPerformed
 
     private void jBpesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBpesquisaActionPerformed
-      
+
         switch (jCbpesquisa.getSelectedIndex()) {
-            case 0:     
+            case 0:
                 dao.consultargeral(classefuncionario);
                 break;
             case 1:
@@ -915,10 +913,6 @@ public class FCadFuncionario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTConsultaMouseClicked
 
-    private void JtfCdTelefoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JtfCdTelefoneFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JtfCdTelefoneFocusLost
-
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
@@ -926,11 +920,11 @@ public class FCadFuncionario extends javax.swing.JFrame {
     private void BtnMaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMaisActionPerformed
         classefuncionario.setTabela(JtbTelefone);
 
-        daomovtelefone.adicionaritens(classefuncionario, new String[]{JtfSequenciaTelefone.getText(), JtfCdTelefone.getText(),
+        daomovtelefone.adicionaritens(classefuncionario, new String[]{JtfSequencia.getText(), JtfCdTelefone.getText(),
             JtfCdTpTelefone.getText(), JtfNrTelefone.getText()});
         JtbTelefone = classefuncionario.getTabela();
 
-        JtfSequenciaTelefone.setText("");
+        JtfSequencia.setText("");
         JtfCdTelefone.setText("");
         JtfCdTpTelefone.setText("");
         JtfNrTelefone.setText("");
@@ -996,7 +990,6 @@ public class FCadFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextField JtfBairro;
     private javax.swing.JTextField JtfCdCidade;
     private javax.swing.JTextField JtfCdFuncao;
-    private javax.swing.JTextField JtfCdTelefone;
     private javax.swing.JTextField JtfCdTpTelefone;
     private javax.swing.JTextField JtfCodigoPessoa;
     private javax.swing.JTextField JtfComplemento;
@@ -1015,8 +1008,8 @@ public class FCadFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextField JtfRg;
     private javax.swing.JTextField JtfRua;
     private javax.swing.JTextField JtfSalario;
-    private javax.swing.JTextField JtfSequenciaTelefone;
-    private javax.swing.JTextField JtfSequnciaEnderecoPessoa;
+    private javax.swing.JTextField JtfSequencia;
+    private javax.swing.JTextField JtfSequencia2;
     private javax.swing.JTextField JtfSexo;
     private javax.swing.JTextField JtfSituacao;
     private javax.swing.JButton jBpesquisa;
@@ -1025,7 +1018,6 @@ public class FCadFuncionario extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JComboBox jComboBox4;
     private javax.swing.JComboBox jComboBox5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1045,7 +1037,6 @@ public class FCadFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
@@ -1068,6 +1059,7 @@ public class FCadFuncionario extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTPrincipal;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTfPesquisa;
+    private javax.swing.JComboBox jcbcidade;
     // End of variables declaration//GEN-END:variables
  public ClasseFuncionario getcomp() {
         if (situacao == Rotinas.Alterar) {
@@ -1087,7 +1079,7 @@ public class FCadFuncionario extends javax.swing.JFrame {
         classefuncionario.setE_mail(JtfEmail.getText());
         classefuncionario.setProblemas_saude(JtfProblemaSaude.getText());
         classefuncionario.setEstado_civil(JtfEstadoCivil.getText());
-        classefuncionario.setSequencia_endereco(Integer.parseInt(JtfSequnciaEnderecoPessoa.getText()));
+        classefuncionario.setSequencia_endereco(Integer.parseInt(JtfSequencia2.getText()));
         classefuncionario.setRua(JtfRua.getText());
         classefuncionario.setNumero(JtfNumero.getText());
         classefuncionario.setBairro(JtfBairro.getText());
@@ -1113,7 +1105,7 @@ public class FCadFuncionario extends javax.swing.JFrame {
         JtfEmail.setText(classefuncionario.getE_mail());
         JtfProblemaSaude.setText(classefuncionario.getProblemas_saude());
         JtfEstadoCivil.setText(classefuncionario.getEstado_civil());
-        JtfSequnciaEnderecoPessoa.setText(Integer.toString(classefuncionario.getSequencia_endereco()));
+        JtfSequencia2.setText(Integer.toString(classefuncionario.getSequencia_endereco()));
         JtfRua.setText(classefuncionario.getRua());
         JtfNumero.setText(classefuncionario.getNumero());
         JtfBairro.setText(classefuncionario.getBairro());

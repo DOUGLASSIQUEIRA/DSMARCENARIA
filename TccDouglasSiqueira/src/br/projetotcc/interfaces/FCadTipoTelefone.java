@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.projetotcc.interfaces;
 
 /**
  *
  * @author Douglas Siqueira
  */
-
 import br.projetotcc.classe.ClasseTipoTelefone;
 import br.projetotcc.dao.DaoTipoTelefone;
 import br.projetotcc.validacoes.Rotinas;
@@ -21,7 +19,7 @@ import br.projetotcc.validacoes.ValidaCamposObrigatorios;
 import br.projetotcc.validacoes.PreencherJtableGenerica;
 
 public class FCadTipoTelefone extends javax.swing.JFrame {
-    
+
     ClasseTipoTelefone classetipotelefone = new ClasseTipoTelefone();
     DaoTipoTelefone dao = new DaoTipoTelefone();
     ValidaBotoes estado = new ValidaBotoes();
@@ -29,12 +27,16 @@ public class FCadTipoTelefone extends javax.swing.JFrame {
     ValidaCamposObrigatorios validacampos = new ValidaCamposObrigatorios();
     PreencherJtableGenerica preencher = new PreencherJtableGenerica();
     int situacao = Rotinas.Padrao;
+
     /**
-     * Creates new form 
+     * Creates new form
      */
     public FCadTipoTelefone() {
         initComponents();
         preencher.FormatarJtable(jTConsulta, new int[]{100, 450});
+        situacao = Rotinas.Padrao;
+        estado.ValidaEstado(jPbotoes, situacao, jButton1, jButton2, jButton3, jButton4, jButton5);
+        estado.HabilitarCampos(jPCadastro, false);
     }
 
     /**
@@ -264,8 +266,10 @@ public class FCadTipoTelefone extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         jTfdescricao.grabFocus();
         situacao = Rotinas.Incluir;
-        estado.ValidaEstado(jPbotoes, situacao);
+        estado.ValidaEstado(jPbotoes, situacao, jButton1, jButton2, jButton3, jButton4, jButton5);
         limparcampos.LimparCampos(jPCadastro);
+        estado.HabilitarCampos(jPCadastro, true);
+        jTfcodigo.setEditable(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTfcodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTfcodigoFocusLost
@@ -277,27 +281,37 @@ public class FCadTipoTelefone extends javax.swing.JFrame {
     }//GEN-LAST:event_jTfcodigoFocusLost
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-         situacao = Rotinas.Alterar;
-        // TODO add your handling code here:
-        estado.ValidaEstado(jPbotoes, situacao);
+        situacao = Rotinas.Alterar;
+        estado.ValidaEstado(jPbotoes, situacao, jButton1, jButton2, jButton3, jButton4, jButton5);
+        estado.HabilitarCampos(jPCadastro, true);
+        jTfcodigo.setEditable(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-         if (JOptionPane.showConfirmDialog(null, "Confirmar a Exclusão do Registro") == 0) {
+        if (JOptionPane.showConfirmDialog(null, "Confirmar a Exclusão do Registro") == 0) {
             //classe.setCdcor(Integer.parseInt(jTfcodigo.getText()));
             dao.excluir(classetipotelefone);
             limparcampos.LimparCampos(jPCadastro);
+            situacao = Rotinas.Padrao;
+            estado.ValidaEstado(jPbotoes, situacao, jButton1, jButton2, jButton3, jButton4, jButton5);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        situacao = Rotinas.Padrao;
-        // TODO add your handling code here:
-        estado.ValidaEstado(jPbotoes, situacao);
+        if (JOptionPane.showConfirmDialog(null, "Confirmar Cancelar") == 0) {
+            situacao = Rotinas.Padrao;
+            estado.ValidaEstado(jPbotoes, situacao, jButton1, jButton2, jButton3, jButton4, jButton5);
+            estado.HabilitarCampos(jPCadastro, false);
+            jTfcodigo.setEditable(false);
+            limparcampos.LimparCampos(jPCadastro);
+
+        } else {
+            jTfdescricao.grabFocus();;
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-         if (validacampos.retorno != 1) {
+        if (validacampos.retorno != 1) {
             // TODO add your handling code here:
             if (jTfdescricao.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe o tipo de telefone");
@@ -314,8 +328,9 @@ public class FCadTipoTelefone extends javax.swing.JFrame {
                 }
             }
         }
-        estado.ValidaEstado(jPbotoes, Rotinas.Padrao);
         situacao = Rotinas.Padrao;
+        estado.ValidaEstado(jPbotoes, situacao, jButton1, jButton2, jButton3, jButton4, jButton5);
+        estado.HabilitarCampos(jPCadastro, false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jBpesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBpesquisaActionPerformed
@@ -336,7 +351,7 @@ public class FCadTipoTelefone extends javax.swing.JFrame {
     }//GEN-LAST:event_jBpesquisaActionPerformed
 
     private void jTConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTConsultaMouseClicked
-       if (evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 2) {
             int linha = jTConsulta.getSelectedRow();
             String codigo = (String) jTConsulta.getValueAt(linha, 0);
 
@@ -345,7 +360,9 @@ public class FCadTipoTelefone extends javax.swing.JFrame {
             setcomp();
 
             jTPrincipal.setSelectedIndex(0);
-       }
+        }
+        situacao = Rotinas.Alterar;
+        estado.ValidaEstado(jPbotoes, situacao, jButton1, jButton2, jButton3, jButton4, jButton5);
     }//GEN-LAST:event_jTConsultaMouseClicked
 
     /**

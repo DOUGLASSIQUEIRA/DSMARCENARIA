@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.projetotcc.interfaces;
 
 /**
  *
  * @author Douglas Siqueira
  */
-
 import br.projetotcc.classe.ClasseCidade;
 import br.projetotcc.dao.DaoCidade;
 import br.projetotcc.validacoes.Rotinas;
@@ -21,7 +19,7 @@ import br.projetotcc.validacoes.ValidaCamposObrigatorios;
 import br.projetotcc.validacoes.PreencherJtableGenerica;
 
 public class FCadCidade extends javax.swing.JFrame {
-    
+
     ClasseCidade classecidade = new ClasseCidade();
     DaoCidade dao = new DaoCidade();
     ValidaBotoes estado = new ValidaBotoes();
@@ -29,12 +27,16 @@ public class FCadCidade extends javax.swing.JFrame {
     ValidaCamposObrigatorios validacampos = new ValidaCamposObrigatorios();
     PreencherJtableGenerica preencher = new PreencherJtableGenerica();
     int situacao = Rotinas.Padrao;
+
     /**
-     * Creates new form 
+     * Creates new form
      */
     public FCadCidade() {
         initComponents();
-        preencher.FormatarJtable(jTConsulta, new int[]{100, 300,200,200,100});
+        preencher.FormatarJtable(jTConsulta, new int[]{100, 300, 200, 200, 100});
+        situacao = Rotinas.Padrao;
+        estado.ValidaEstado(jPbotoes, situacao, jButton1, jButton2, jButton3, jButton4, jButton5);
+          estado.HabilitarCampos(jPCadastro, false);
     }
 
     /**
@@ -152,16 +154,18 @@ public class FCadCidade extends javax.swing.JFrame {
             .addGroup(jPbotoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPbotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPbotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPbotoesLayout.createSequentialGroup()
+                        .addGroup(jPbotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        jPbotoesLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4, jButton5});
+        jPbotoesLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton2, jButton3, jButton5});
 
         jLabel4.setText("Pais");
 
@@ -174,23 +178,27 @@ public class FCadCidade extends javax.swing.JFrame {
             .addGroup(jPCadastroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jTfdescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPCadastroLayout.createSequentialGroup()
                         .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(edtcep, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(56, 56, 56)
-                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(edtpais, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(edtuf, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jTfcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jTfdescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPCadastroLayout.createSequentialGroup()
+                                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(edtcep, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))
+                                .addGap(56, 56, 56)
+                                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(edtpais, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addGap(30, 30, 30)
+                                .addGroup(jPCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(edtuf, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(30, Short.MAX_VALUE))
+                    .addGroup(jPCadastroLayout.createSequentialGroup()
+                        .addComponent(jTfcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(163, 491, Short.MAX_VALUE))))
             .addComponent(jPbotoes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPCadastroLayout.setVerticalGroup(
@@ -240,7 +248,7 @@ public class FCadCidade extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, true
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -305,8 +313,11 @@ public class FCadCidade extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         jTfdescricao.grabFocus();
         situacao = Rotinas.Incluir;
-        estado.ValidaEstado(jPbotoes, situacao);
+        estado.ValidaEstado(jPbotoes, situacao, jButton1, jButton2, jButton3, jButton4, jButton5);
         limparcampos.LimparCampos(jPCadastro);
+        estado.HabilitarCampos(jPCadastro, true);
+        jTfcodigo.setEditable(false);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTfcodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTfcodigoFocusLost
@@ -318,30 +329,40 @@ public class FCadCidade extends javax.swing.JFrame {
     }//GEN-LAST:event_jTfcodigoFocusLost
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-         situacao = Rotinas.Alterar;
-        // TODO add your handling code here:
-        estado.ValidaEstado(jPbotoes, situacao);
+        situacao = Rotinas.Alterar;
+        estado.ValidaEstado(jPbotoes, situacao, jButton1, jButton2, jButton3, jButton4, jButton5);
+                estado.HabilitarCampos(jPCadastro, true);
+        jTfcodigo.setEditable(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-         if (JOptionPane.showConfirmDialog(null, "Confirmar a Exclusão do Registro") == 0) {
+        if (JOptionPane.showConfirmDialog(null, "Confirmar a Exclusão do Registro") == 0) {
             //classe.setCdcor(Integer.parseInt(jTfcodigo.getText()));
             dao.excluir(classecidade);
             limparcampos.LimparCampos(jPCadastro);
+            situacao = Rotinas.Padrao;
+            estado.ValidaEstado(jPbotoes, situacao, jButton1, jButton2, jButton3, jButton4, jButton5);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        situacao = Rotinas.Padrao;
-        // TODO add your handling code here:
-        estado.ValidaEstado(jPbotoes, situacao);
+        if (JOptionPane.showConfirmDialog(null, "Confirmar Cancelar") == 0) {
+            situacao = Rotinas.Padrao;
+            estado.ValidaEstado(jPbotoes, situacao, jButton1, jButton2, jButton3, jButton4, jButton5);
+            estado.HabilitarCampos(jPCadastro, false);
+            jTfcodigo.setEditable(false);
+            limparcampos.LimparCampos(jPCadastro);
+        } else {
+            jTfdescricao.grabFocus();;
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       if (validacampos.retorno != 1) {
+
+        if (validacampos.retorno != 1) {
             // TODO add your handling code here:
             if (jTfdescricao.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Informe a Unidade de Medida");
+                JOptionPane.showMessageDialog(null, "Informe o nome da Cidade");
                 jTfdescricao.grabFocus();
                 return;
 
@@ -355,8 +376,9 @@ public class FCadCidade extends javax.swing.JFrame {
                 }
             }
         }
-        estado.ValidaEstado(jPbotoes, Rotinas.Padrao);
         situacao = Rotinas.Padrao;
+        estado.ValidaEstado(jPbotoes, situacao, jButton1, jButton2, jButton3, jButton4, jButton5);
+        estado.HabilitarCampos(jPCadastro, false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jBpesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBpesquisaActionPerformed
@@ -381,7 +403,7 @@ public class FCadCidade extends javax.swing.JFrame {
     }//GEN-LAST:event_jBpesquisaActionPerformed
 
     private void jTConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTConsultaMouseClicked
-       if (evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 2) {
             int linha = jTConsulta.getSelectedRow();
             String codigo = (String) jTConsulta.getValueAt(linha, 0);
 
@@ -390,7 +412,9 @@ public class FCadCidade extends javax.swing.JFrame {
             setcomp();
 
             jTPrincipal.setSelectedIndex(0);
-       }
+        }
+        situacao = Rotinas.Alterar;
+        estado.ValidaEstado(jPbotoes, situacao, jButton1, jButton2, jButton3, jButton4, jButton5);
     }//GEN-LAST:event_jTConsultaMouseClicked
 
     /**
@@ -418,6 +442,246 @@ public class FCadCidade extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FCadCidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

@@ -15,14 +15,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author eli
  */
-public class DaoMovFuncionarioTelefone {
+public class DaoMovFuncionarioEndereco {
    
     
      ConexaoPostgre conecta_postgre;
      UltimaSequencia ultima;
      
     
-    public  DaoMovFuncionarioTelefone(){
+    public  DaoMovFuncionarioEndereco(){
         conecta_postgre = new ConexaoPostgre();
          
     }

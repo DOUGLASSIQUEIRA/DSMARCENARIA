@@ -96,13 +96,13 @@ public class FPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-                final FCadFuncao mm = new FCadFuncao();
-        mm.setVisible(true);
+                final FCadFuncao funcao = new FCadFuncao();
+        funcao.setVisible(true);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        final FCadCidade mm = new FCadCidade();
-        mm.setVisible(true);
+        final FCadCidade cidade = new FCadCidade();
+        cidade.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

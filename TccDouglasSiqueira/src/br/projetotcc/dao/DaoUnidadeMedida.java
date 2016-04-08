@@ -38,7 +38,7 @@ public class DaoUnidadeMedida {
 
     public void alterar(ClasseUnidadeMedida unmedida) {
 
-        String sql = ("update cad_unidade_medida set ds_unidade_medida = '" + unmedida.getDs_unidade_medida()+ "' where id_unidade_medida = "
+        String sql = ("update cad_unidade_medida set ds_unidade_medida = '" + unmedida.getDs_unidade_medida()+ "' where cd_unidade_medida = "
                 + unmedida.getId_unidade_medida());
 
         conecta_postgre.atualizarSQL(sql);
@@ -54,7 +54,7 @@ public class DaoUnidadeMedida {
 
     public void retornardados(ClasseUnidadeMedida unmedida) {
         String sql = "select cd_unidade_medida,ds_unidade_medida from cad_unidade_medida "
-                + "where id_unidade_medida = " + unmedida.getId_unidade_medida();
+                + "where cd_unidade_medida = " + unmedida.getId_unidade_medida();
         conecta_postgre.executeSQL(sql);
 
         try {

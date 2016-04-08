@@ -84,7 +84,7 @@ public class DaoFuncionario {
 
         // incluir telefone
         ultima = new UltimaSequencia();
-        int sequenciatelefone = (Integer) (ultima.ultimasequencia("cad_telefone", "seequencia"));
+        int sequenciatelefone = (Integer) (ultima.ultimasequencia("cad_telefone", "sequencia"));
 
         String sqltelefone = " insert into cad_telefone values( "
                 + sequenciatelefone + ","
@@ -231,7 +231,7 @@ public class DaoFuncionario {
                 + "inner join cad_telefone on cad_pessoa.cd_pessoa = cad_telefone.cd_pessoa\n"
                 + "inner join cad_tipo_telefone on cad_telefone.cd_tipo_telefone = cad_tipo_telefone.cd_tipo_telefone\n"
                 + "inner join cad_cidade on cad_endereco.cd_cidade = cad_cidade.cd_cidade\n"
-                + "inner join cad_funcao on cad_funcionario.cd_funcao = cad_funcao.cd_funcao where cad_pessoa.cd_pessoa = " + funcionario.getId_pessoa());
+                + "inner join cad_funcao on cad_funcionario.cd_funcao = cad_funcao.cd_funcao where cad_pessoa.cd_pessoa = " + funcionario.getId_funcionario());
         funcionario.setRetorno(conecta_postgre.resultset);
 
     }
@@ -265,7 +265,7 @@ public class DaoFuncionario {
                 + "inner join cad_telefone on cad_pessoa.cd_pessoa = cad_telefone.cd_pessoa\n"
                 + "inner join cad_tipo_telefone on cad_telefone.cd_tipo_telefone = cad_tipo_telefone.cd_tipo_telefone\n"
                 + "inner join cad_cidade on cad_endereco.cd_cidade = cad_cidade.cd_cidade\n"
-                + "inner join cad_funcao on cad_funcionario.cd_funcao = cad_funcao.cd_funcao where cad_pessoa_fisica.cpf like '%" + funcionario.getNm_pessoa() + "%'");
+                + "inner join cad_funcao on cad_funcionario.cd_funcao = cad_funcao.cd_funcao where cad_pessoa_fisica.cpf like '%" + funcionario.getCpf()+ "%'");
         funcionario.setRetorno(conecta_postgre.resultset);
 
     }
@@ -282,7 +282,7 @@ public class DaoFuncionario {
                 + "inner join cad_telefone on cad_pessoa.cd_pessoa = cad_telefone.cd_pessoa\n"
                 + "inner join cad_tipo_telefone on cad_telefone.cd_tipo_telefone = cad_tipo_telefone.cd_tipo_telefone\n"
                 + "inner join cad_cidade on cad_endereco.cd_cidade = cad_cidade.cd_cidade\n"
-                + "inner join cad_funcao on cad_funcionario.cd_funcao = cad_funcao.cd_funcao where cad_pessoa_fisica.rg like '%" + funcionario.getNm_pessoa() + "%'");
+                + "inner join cad_funcao on cad_funcionario.cd_funcao = cad_funcao.cd_funcao where cad_pessoa_fisica.rg like '%" + funcionario.getRg()+ "%'");
         funcionario.setRetorno(conecta_postgre.resultset);
 
     }

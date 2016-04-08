@@ -37,7 +37,7 @@ public class DaoTipoFornecedor {
 
     public void alterar(ClasseTipoFornecedor tipofornecedor) {
 
-        String sql = ("update cad_tipo_fornecedor set ds_forma = '" + tipofornecedor.getDs_tipo_fornecedpr()+ "'where cd_tipo_fornecedor = "
+        String sql = ("update cad_tipo_fornecedor set ds_tipo_fornecedor = '" + tipofornecedor.getDs_tipo_fornecedpr()+ "'where cd_tipo_fornecedor = "
                 + tipofornecedor.getId_tipo_fornecedor());
 
         conecta_postgre.atualizarSQL(sql);
@@ -46,7 +46,7 @@ public class DaoTipoFornecedor {
 
     public void excluir(ClasseTipoFornecedor tipofornecedor) {
 
-        String sql = ("delete from cad_tipo_pagamento where cd_tipo_pagamento = " + tipofornecedor.getId_tipo_fornecedor());
+        String sql = ("delete from cad_tipo_fornecedor where cd_tipo_fornecedor = " + tipofornecedor.getId_tipo_fornecedor());
         conecta_postgre.excluirSQL(sql);
 
     }

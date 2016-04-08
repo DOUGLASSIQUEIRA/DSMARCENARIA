@@ -52,10 +52,14 @@ public class DaoFormaPagamento {
     }
 
     public void retornardados(ClasseFormaPagamento formapgto) {
-        String sql = "select cd_forma_pagamento,ds_forma "
+        String sql = "select cd_forma_pagamento,ds_forma from cad_forma_pagamento "
                 + "where cd_forma_pagamento = " + formapgto.getId_forma_pagamento();
         conecta_postgre.executeSQL(sql);
-
+        
+//                String sql = "select cd_cidade,ds_cidade, cd_uf,cep,pais from cad_cidade "
+//                + "where cd_cidade = " + cidade.getId_cidade();
+//        conecta_postgre.executeSQL(sql);
+        
         try {
 
             conecta_postgre.resultset.first();

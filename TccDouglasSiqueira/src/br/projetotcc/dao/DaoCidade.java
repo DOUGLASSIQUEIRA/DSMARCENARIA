@@ -27,9 +27,9 @@ public class DaoCidade {
         ultima = new UltimaSequencia();
         int sequencia = (Integer) (ultima.ultimasequencia("cad_cidade", "cd_cidade"));
         String sql = " insert into cad_cidade values( "
-                + sequencia + " ,' "
-                + cidade.getNm_cidade()+ "','"
-                + cidade.getUf()+"',"
+                + sequencia + " ,'"
+                + cidade.getUf()+ "','"
+                + cidade.getNm_cidade()+"',"
                 + cidade.getCep()+",'"
                 + cidade.getPais()+"')";
                 
@@ -40,7 +40,7 @@ public class DaoCidade {
 
     public void alterar(ClasseCidade cidade) {
 
-        String sql = ("update cad_cidade set ds_cidade,cep,pais = '" + cidade.getNm_cidade()+ cidade.getCep()+cidade.getPais()+ "'where cd_cidade = "
+        String sql = ("update cad_cidade set ds_cidade = '" + cidade.getNm_cidade()+"',cep = "+ cidade.getCep()+",pais = '"+ cidade.getPais()+ "' where cd_cidade = "
                 + cidade.getId_cidade());
 
         conecta_postgre.atualizarSQL(sql);

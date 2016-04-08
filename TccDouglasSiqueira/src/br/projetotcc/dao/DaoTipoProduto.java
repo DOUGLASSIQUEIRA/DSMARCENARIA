@@ -37,7 +37,7 @@ public class DaoTipoProduto {
 
     public void alterar(ClasseTipoProduto tipoproduto) {
 
-        String sql = ("update cad_tipo_produto set ds_tipo_produto = '" + tipoproduto.getDs_tipo_produto()+ "'where cd_tipo_fornecedor = "
+        String sql = ("update cad_tipo_produto set ds_tipo_produto = '" + tipoproduto.getDs_tipo_produto()+ "'where cd_tipo_produto = "
                 + tipoproduto.getId_tipo_produto());
 
         conecta_postgre.atualizarSQL(sql);
@@ -52,7 +52,7 @@ public class DaoTipoProduto {
     }
 
     public void retornardados(ClasseTipoProduto tipoproduto) {
-        String sql = "select cd_tipo_produto,ds_tipo_ptoduto from cad_tipo_produto "
+        String sql = "select cd_tipo_produto,ds_tipo_produto from cad_tipo_produto "
                 + "where cd_tipo_produto = " + tipoproduto.getId_tipo_produto();
         conecta_postgre.executeSQL(sql);
 
